@@ -6,9 +6,13 @@
 #		a_transition	a matrix of transition probabilities 
 #		b_emission		a matrix of emission probabilities 
 #		pi_initial		a vector of initial probabilities 
+# 
+#  Note that this implementation takes advantage of recursive relationships 
+#  between time points but isn't a true example, where we would expect the 
+#  forward function to be repeatedly called on the subproblem
 #
 
-forward = function(y, a_transition, b_emission, pi_initial){
+forwardHMM = function(y, a_transition, b_emission, pi_initial){
 	sequence_length = length(y)
 	num_hidden = nrow(a_transition)
 	forward_probabilities = matrix(0, sequence_length, num_hidden)
@@ -38,7 +42,7 @@ weather_pi <- c(0.5, 0.5)
 observed_sequence <- c('sunglasses', 'hat', 'umbrella')
 observed_sequence <- c(1, 3, 2)
 
-forward(
+forwardHMM(
 	y = observed_sequence,
 	a_transition = weather_a,
 	b_emission = weather_b,
